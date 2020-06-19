@@ -17,12 +17,12 @@ export const createPromiseThunk = (type, promiseCreator) => (param) => async (
   }
 };
 
-export const handleAsyncActions = (type, key) => (state, action) => {
+export const handleAsyncActions = (type, key, keepData) => (state, action) => {
   switch (action.type) {
     case type:
       return {
         ...state,
-        [key]: reducerUtils.loading(),
+        [key]: reducerUtils.loading(keepData ? state[key].data : null),
       };
     case `${type}_SUCCESS`:
       return {
